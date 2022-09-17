@@ -41,7 +41,7 @@ app.post("/games/:id/ads", async (request, response) => {
     },
   });
 
-  return response.status(201).json(body);
+  return response.status(201).json(ad);
 });
 
 app.get("/games/:id/ads", async (request, response) => {
