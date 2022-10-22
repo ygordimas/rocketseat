@@ -14,9 +14,9 @@ export const authOptions = {
     }),
     // ...add more providers here
   ],
-  jwt: {
-    signingKey: process.env.SIGNING_KEY,
-  },
+  // jwt: {
+  //   signingKey: process.env.SIGNING_KEY,
+  // },
   callbacks: {
     async signIn({ user }) {
       const { email } = user;
