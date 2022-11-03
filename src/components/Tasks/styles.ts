@@ -43,4 +43,7 @@ export const styles = StyleSheet.create({
     borderTopWidth: StyleSheet.hairlineWidth,
     alignItems: "center",
   },
+  taskPlaceholder: {
+    color: dark.GRAY_300,
+  },
 });

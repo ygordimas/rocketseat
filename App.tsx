@@ -8,8 +8,11 @@ import {
   Inter_400Regular,
   Inter_700Bold,
 } from "@expo-google-fonts/inter";
+import { useState } from "react";
 
 export default function App() {
+  const [tasks, setTasks] = useState<TasksProps[]>([]);
+
   let [fontsLoaded] = useFonts({
     Inter_400Regular,
     Inter_700Bold,
@@ -23,8 +26,8 @@ export default function App() {
     <>
       <SafeAreaView style={styles.container}>
         <StatusBar translucent barStyle="light-content" />
-        <Header />
-        <Tasks />
+        <Header setTasks={setTasks} />
+        {/* <Tasks tasks={tasks} setTasks={setTasks} /> */}
       </SafeAreaView>
     </>
   );
