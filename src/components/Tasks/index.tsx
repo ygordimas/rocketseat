@@ -1,9 +1,13 @@
-import { View, Text } from "react-native";
+import { View, Text, FlatList } from "react-native";
 import dark from "../../themes/dark.style";
 import { styles } from "./styles";
 import Clipboard from "../../../assets/Clipboard.svg";
 import { useState } from "react";
 import { Task } from "../Task";
+
+type TasksProps = {
+  tasks: TaskProps[];
+};
 
 export function Tasks({ tasks, setTasks }: TasksProps & HeaderProps) {
   return (
@@ -40,15 +44,23 @@ export function Tasks({ tasks, setTasks }: TasksProps & HeaderProps) {
               </Text>
             </>
           ) : (
-            <>
-              {tasks.map((task) => (
-                <Task
-                  task={task.task}
-                  taskId={task.taskId}
-                  setTasks={setTasks}
-                />
-              ))}
-            </>
+            // <>
+            //   {tasks.map((task) => (
+            //     <Task
+            //       task={task.task}
+            //       taskId={task.taskId}
+            //       setTasks={setTasks}
+            //     />
+            //   ))}
+            // </>
+            <View style={styles.flatList}>
+              <FlatList
+                data={tasks}
+                renderItem={({ item }) => (
+                  <Task task={item.task} setTasks={setTasks} />
+                )}
+              />
+            </View>
           )}
         </View>
       </View>

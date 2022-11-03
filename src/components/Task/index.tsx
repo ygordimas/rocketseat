@@ -23,11 +23,11 @@ function MyCheckbox() {
 }
 
 interface MyTrashProps {
-  taskId: string | number[];
+  key?: string | number[];
   setTasks: React.Dispatch<React.SetStateAction<TaskProps[]>>;
 }
 
-function MyTrash({ taskId, setTasks }: MyTrashProps) {
+function MyTrash({ key, setTasks }: MyTrashProps) {
   function onTrashPress() {}
   return (
     <Pressable style={styles.trash} onPress={onTrashPress}>
@@ -36,13 +36,13 @@ function MyTrash({ taskId, setTasks }: MyTrashProps) {
   );
 }
 
-export function Task({ task, taskId, setTasks }: TaskProps & HeaderProps) {
+export function Task({ task, key, setTasks }: TaskProps & HeaderProps) {
   return (
     <>
       <View style={styles.task}>
         <MyCheckbox />
         <Text style={styles.taskText}>{task}</Text>
-        <MyTrash taskId={taskId} setTasks={setTasks} />
+        <MyTrash setTasks={setTasks} />
       </View>
     </>
   );

@@ -42,6 +42,11 @@ export const styles = StyleSheet.create({
     borderColor: dark.GRAY_300,
     borderTopWidth: StyleSheet.hairlineWidth,
     alignItems: "center",
+    width: "100%",
+  },
+  flatList: {
+    width: "100%",
+    marginBottom: 48,
   },
   taskPlaceholder: {
     color: dark.GRAY_300,

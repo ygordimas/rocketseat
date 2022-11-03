@@ -9,9 +9,15 @@ import {
   Inter_700Bold,
 } from "@expo-google-fonts/inter";
 import { useState } from "react";
+import uuid from "react-native-uuid";
 
 export default function App() {
-  const [tasks, setTasks] = useState<TasksProps[]>([]);
+  const [tasks, setTasks] = useState<TaskProps[]>([]);
+
+  function handleAddNewTask(task: string) {
+    setTasks((prevValue) => [...prevValue, { task: task, key: uuid.v4() }]);
+    console.log(tasks);
+  }
 
   let [fontsLoaded] = useFonts({
     Inter_400Regular,
@@ -26,8 +32,8 @@ export default function App() {
     <>
       <SafeAreaView style={styles.container}>
         <StatusBar translucent barStyle="light-content" />
-        <Header setTasks={setTasks} />
-        {/* <Tasks tasks={tasks} setTasks={setTasks} /> */}
+        <Header handleAddNewTask={handleAddNewTask} />
+        <Tasks tasks={tasks} setTasks={setTasks} />
       </SafeAreaView>
     </>
   );

@@ -1,13 +1,6 @@
 interface TaskProps {
   task: string;
-  taskId: string | number[];
-}
-
-interface TasksProps {
-  tasks: {
-    task: string;
-    taskId: string | number[];
-  }[];
+  key?: string | number[];
 }
 
 interface HeaderProps {

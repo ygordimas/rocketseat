@@ -13,8 +13,9 @@ export const styles = StyleSheet.create({
     borderRadius: 8,
     borderWidth: 1,
     borderColor: dark.GRAY_400,
+    marginBottom: 8,
   },
-  taskText: { color: dark.GRAY_100, marginHorizontal: 8 },
+  taskText: { color: dark.GRAY_100, marginHorizontal: 8, flexGrow: 1 },
   checkboxBase: {
     width: 17.45,
     height: 17.45,

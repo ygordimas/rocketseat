@@ -9,14 +9,14 @@ import Logo from "../../../assets/logo.svg";
 import { styles } from "./styles";
 import dark from "../../../src/themes/dark.style";
 import { useState } from "react";
-import uuid from "react-native-uuid";
 
-export function Header({ setTasks }: HeaderProps) {
+type HeaderProps = {
+  handleAddNewTask: (task: string) => void;
+};
+
+export function Header({ handleAddNewTask }: HeaderProps) {
   const [task, setTask] = useState("");
 
-  function handleAddNewTask() {
-    setTasks((prevValue) => [...prevValue, { task: task, taskId: uuid.v4() }]);
-  }
   return (
     <>
       <View style={styles.container}>
@@ -27,8 +27,15 @@ export function Header({ setTasks }: HeaderProps) {
             placeholder="Adicione uma nova tarefa"
             placeholderTextColor={dark.GRAY_300}
             onChangeText={(newText) => setTask(newText)}
+            value={task}
           />
-          <TouchableOpacity style={styles.button} onPress={handleAddNewTask}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => {
+              handleAddNewTask(task);
+              setTask("");
+            }}
+          >
             <Text style={styles.buttonText}>+</Text>
           </TouchableOpacity>
         </View>
