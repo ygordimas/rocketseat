@@ -5,44 +5,63 @@ import dark from "../../../src/themes/dark.style";
 import { AntDesign } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
 
-function MyCheckbox() {
-  const [isChecked, setIsChecked] = useState(false);
+type MyCheckbox = TaskProps & CheckProps;
 
-  function onCheckmarkPress() {
-    setIsChecked(!isChecked);
-  }
+function MyCheckbox({ task, completed, id, handleCheck }: MyCheckbox) {
+  // const [isChecked, setIsChecked] = useState(false);
+
+  // function onCheckmarkPress() {
+  //   setIsChecked(!isChecked);
+  // }
 
   return (
     <Pressable
-      style={[styles.checkboxBase, isChecked && styles.checkboxChecked]}
-      onPress={onCheckmarkPress}
+      style={[styles.checkboxBase, completed && styles.checkboxChecked]}
+      onPress={() => handleCheck(id)}
     >
-      {isChecked && <AntDesign name="check" size={8} color="black" />}
+      {completed && <AntDesign name="check" size={10} color={dark.GRAY_100} />}
     </Pressable>
   );
 }
 
 interface MyTrashProps {
-  key?: string | number[];
+  id: string | number[];
   setTasks: React.Dispatch<React.SetStateAction<TaskProps[]>>;
 }
 
-function MyTrash({ key, setTasks }: MyTrashProps) {
-  function onTrashPress() {}
+function MyTrash({ id, setTasks, handleDelete }: MyTrashProps & DeleteProps) {
   return (
-    <Pressable style={styles.trash} onPress={onTrashPress}>
-      <Entypo name="trash" size={24} color="black" />
+    <Pressable style={styles.trash} onPress={() => handleDelete(id)}>
+      <Entypo name="trash" size={24} color={dark.GRAY_300} />
     </Pressable>
   );
 }
 
-export function Task({ task, key, setTasks }: TaskProps & HeaderProps) {
+export function Task({
+  task,
+  id,
+  completed,
+  setTasks,
+  handleCheck,
+  handleDelete,
+}: TaskProps & HeaderProps & CheckProps & DeleteProps) {
   return (
     <>
       <View style={styles.task}>
-        <MyCheckbox />
-        <Text style={styles.taskText}>{task}</Text>
-        <MyTrash setTasks={setTasks} />
+        <MyCheckbox
+          task={task}
+          id={id}
+          handleCheck={handleCheck}
+          completed={completed}
+        />
+        <Text style={[styles.taskText, completed && styles.completed]}>
+          {task}
+        </Text>
+        <MyTrash
+          id={id}
+          setTasks={setTasks}
+          handleDelete={() => handleDelete(id)}
+        />
       </View>
     </>
   );

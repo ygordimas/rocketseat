@@ -7,9 +7,16 @@ import { Task } from "../Task";
 
 type TasksProps = {
   tasks: TaskProps[];
-};
+} & HeaderProps &
+  CheckProps &
+  DeleteProps;
 
-export function Tasks({ tasks, setTasks }: TasksProps & HeaderProps) {
+export function Tasks({
+  tasks,
+  setTasks,
+  handleCheck,
+  handleDelete,
+}: TasksProps) {
   return (
     <View style={styles.container}>
       <View style={styles.tasks}>
@@ -18,13 +25,15 @@ export function Tasks({ tasks, setTasks }: TasksProps & HeaderProps) {
             <Text style={[styles.labelText, { color: dark.BLUE }]}>
               Criadas
             </Text>
-            <Text style={styles.counter}>0</Text>
+            <Text style={styles.counter}>{tasks.length}</Text>
           </View>
           <View style={styles.label}>
             <Text style={[styles.labelText, { color: dark.PURPLE }]}>
               Concluídas
             </Text>
-            <Text style={styles.counter}>0</Text>
+            <Text style={styles.counter}>
+              {tasks.filter((task) => task.completed == true).length}
+            </Text>
           </View>
         </View>
         <View style={styles.taskList}>
@@ -44,20 +53,19 @@ export function Tasks({ tasks, setTasks }: TasksProps & HeaderProps) {
               </Text>
             </>
           ) : (
-            // <>
-            //   {tasks.map((task) => (
-            //     <Task
-            //       task={task.task}
-            //       taskId={task.taskId}
-            //       setTasks={setTasks}
-            //     />
-            //   ))}
-            // </>
             <View style={styles.flatList}>
               <FlatList
                 data={tasks}
+                keyExtractor={(item) => item.id as string}
                 renderItem={({ item }) => (
-                  <Task task={item.task} setTasks={setTasks} />
+                  <Task
+                    id={item.id}
+                    task={item.task}
+                    completed={item.completed}
+                    setTasks={setTasks}
+                    handleCheck={handleCheck}
+                    handleDelete={handleDelete}
+                  />
                 )}
               />
             </View>

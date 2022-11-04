@@ -33,6 +33,9 @@ export const styles = StyleSheet.create({
     color: dark.GRAY_100,
     fontFamily: "Inter_400Regular",
   },
+  inputfocus: {
+    borderColor: dark.PURPLEDARK,
+  },
   button: {
     backgroundColor: dark.BLUE_DARK,
     height: 52,

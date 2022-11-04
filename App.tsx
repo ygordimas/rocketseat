@@ -15,8 +15,23 @@ export default function App() {
   const [tasks, setTasks] = useState<TaskProps[]>([]);
 
   function handleAddNewTask(task: string) {
-    setTasks((prevValue) => [...prevValue, { task: task, key: uuid.v4() }]);
-    console.log(tasks);
+    if (task == "") return;
+    setTasks((prevValue) => [
+      ...prevValue,
+      { task: task, id: uuid.v4(), completed: false },
+    ]);
+  }
+
+  function handleCheck(id: string | number[]) {
+    setTasks((prevTasks) =>
+      prevTasks.map((task) =>
+        task.id == id ? { ...task, completed: !task.completed } : { ...task }
+      )
+    );
+  }
+
+  function handleDelete(id: string | number[]) {
+    setTasks((prevTasks) => prevTasks.filter((task) => task.id != id));
   }
 
   let [fontsLoaded] = useFonts({
@@ -33,7 +48,12 @@ export default function App() {
       <SafeAreaView style={styles.container}>
         <StatusBar translucent barStyle="light-content" />
         <Header handleAddNewTask={handleAddNewTask} />
-        <Tasks tasks={tasks} setTasks={setTasks} />
+        <Tasks
+          tasks={tasks}
+          setTasks={setTasks}
+          handleCheck={handleCheck}
+          handleDelete={handleDelete}
+        />
       </SafeAreaView>
     </>
   );
